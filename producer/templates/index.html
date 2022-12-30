@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+        <link href="/static/styles.css" rel="stylesheet">
+        <title>Enter Your Order!</title>
+    </head>
+    <body>
+        <div class="header">
+            <h1>Enter Your Order!</h1>
+        </div>
+        <div class="container">
+            <div class="section">
+
+                <h2>Order HERE</h2>
+                <!-- TODO: Create a form for users to submit a name, a month, and a day -->
+                <form action="/" method="post">
+                    <select name="Appetizer">
+                        <option value="" disabled selected hidden>Starter</option>
+                        <option value="soup_8">Soup of Day 8$</option>
+                        <option value="salad_8">Salad 8$</option>
+                        <option value="buffalowings_15">Buffalo Wings 15$</option>
+                        <option value="mozarellasticks_7">Mozarella Sticks 7$</option>
+                        <option value="fries_5">French Fries 5$</option>
+                    </select>
+                    <select name="MainDish">
+                        <option value="" disabled selected hidden>Main Dish</option>
+                        <option value="steak_25">Steak 25$</option>
+                        <option value="fish_20">Fish 20$</option>
+                        <option value="hamburger_15">Hamburger 15$</option>
+                        <option value="chickenwrap_12">Chicken Wrap 12$</option>
+                    </select>
+                    <select name="Beverage">
+                        <option value="" disabled selected hidden>Beverage</option>
+                        <option value="coke_2">Coke 2$</option>
+                        <option value="beer_5">Beer 5$</option>
+                        <option value="wine_8">Wine 8$</option>
+                        <option value="coctail_13">Special Coctail 13$</option>
+                    </select>
+                    <input type="submit" value="Order!">
+                </form>
+            </div>
+
+        {% if get_flashed_messages() %}
+        <header>
+            <div class="alert alert-primary border text-center" role="alert">
+                {{ get_flashed_messages() | join(" ") }}
+            </div>
+        </header>
+        {% endif %}
+        
+        </div>
+    </body>
+</html>
