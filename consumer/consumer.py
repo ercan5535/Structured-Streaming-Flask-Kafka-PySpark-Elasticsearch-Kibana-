@@ -3,7 +3,7 @@ from pyspark.sql import SparkSession
 from pyspark.sql.functions import *
 from pyspark.sql.types import StructType, StringType
 
-
+# Create Schema
 schema = (
         StructType()
         .add("main_dish", StringType())
@@ -93,13 +93,13 @@ df_final = df.drop("main_dish", "appetizer", "beverage")
 # |2022-12-24 15:04:...|     null|      null|          null|              0|         coke|             2|
 
 # Write to consol
-""" query = \
+query = \
     df_final \
     .writeStream \
     .format("console") \
     .outputMode("append") \
     .trigger(processingTime="5 seconds") \
-    .start() """
+    .start()
 
 
 # Write to elasticsearch
