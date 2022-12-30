@@ -1,8 +1,8 @@
 # Structured Streaming
 In this project I created a structured streaming with common technologies.<br>
-It was a good practice to use these technologies while working at the same time together.<br>
+It was a good practice to use these technologies while working together.<br>
 
-- Producer:
+- Producer:<br>
 I create data from very simple Flask App by ordering food and beverages.<br>
 Flask App get that data and load to Kafka topic for every order.<br>
 
