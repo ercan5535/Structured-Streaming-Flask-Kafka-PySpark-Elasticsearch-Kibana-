@@ -13,13 +13,14 @@ PySpark reads streaming from Kafka, does some data processing and writes to Elas
 - Visualization:<br>
 I used Kibana to visualize Elasticsearch data.<br>
 
+
 Flask App
 
 <img src="https://user-images.githubusercontent.com/67562422/210098040-c3e1e4cf-3bcf-4c28-8ea6-ac55cf560d41.png" width="500" height="280" >
 
 Kibana Dashboard
 
-<img src="https://user-images.githubusercontent.com/67562422/210098100-9fbd6f2f-7724-4c46-94b8-817b39999232.png" width="1000" height="280" >
+<img src="https://user-images.githubusercontent.com/67562422/210100372-c5ab6564-eb08-4545-9f31-318fe3f2475a.png" width="1000" height="280" >
 
 
 # Installation and Starting Services
