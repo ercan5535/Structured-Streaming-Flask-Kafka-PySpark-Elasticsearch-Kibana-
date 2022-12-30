@@ -1,0 +1,4 @@
+Flask==2.2.2
+kafka-python==2.0.2
+pyspark==3.3.1
+

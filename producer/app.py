@@ -1,10 +1,9 @@
 import json
-import time
 
 from flask import Flask, flash, redirect, render_template, request
 from kafka import KafkaProducer
-from datetime import datetime
 
+KAFKAS_SERVER = 
 
 # Kafka Producer
 producer = KafkaProducer(
@@ -26,7 +25,7 @@ def order():
         appetizer = request.form.get("Appetizer") # "soup_8"
         beverage = request.form.get("Beverage") # "coke_2"
 
-        # Ensure anything has ordered
+        # Ensure something has ordered
         if  not (main_dish or appetizer or beverage):
             flash("Plaese Order Something")
             return redirect("/")

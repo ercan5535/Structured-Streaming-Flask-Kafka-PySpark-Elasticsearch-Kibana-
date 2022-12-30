@@ -54,30 +54,3 @@ button, input[type="submit"] {
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     vertical-align: middle;
 }
-
-input[type="text"], input[type="number"] {
-    line-height: 1.8;
-    width: 25%;
-}
-
-input[type="text"]:hover, input[type="number"]:hover {
-    background-color: #f5f5f5;
-    transition: color 2s ease-in-out, background-color 0.15s ease-in-out;
-}
-
-table {
-    background-color: transparent;
-    margin-bottom: 1rem;
-    width: 100%;
-}
-
-table th,
-table td {
-    padding: 0.75rem;
-    vertical-align: middle;
-}
-
-tbody tr:nth-of-type(odd) {
-    background-color: rgb(179, 208, 255, 0.3)
-}
-
