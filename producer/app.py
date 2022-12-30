@@ -3,7 +3,6 @@ import json
 from flask import Flask, flash, redirect, render_template, request
 from kafka import KafkaProducer
 
-KAFKAS_SERVER = 
 
 # Kafka Producer
 producer = KafkaProducer(
