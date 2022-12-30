@@ -105,7 +105,7 @@ It will be working on: localhost:5000/ <br><br>
 Now Flask App is ready. Go localhost:5000/ and order something :)
 ## Step 4) Start PySpark (Consumer)
 Open a new terminal session and run:<br>
-$ cd consumer/
+$ cd consumer/<br>
 $ spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.1 --jars elasticsearch-spark-30_2.12-8.5.3.jar consumer.py
 
 
