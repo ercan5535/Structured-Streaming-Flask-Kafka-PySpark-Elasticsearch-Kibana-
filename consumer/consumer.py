@@ -82,7 +82,7 @@ df = df.withColumn("beverage_price", when(df["beverage"].isNull(), None)
 # |   main_dish|appetizer|beverage|           timestamp|main_name|main_price|appetizer_name|appetizer_price|beverage_name|beverage_price|
 # +------------+---------+--------+--------------------+---------+----------+--------------+---------------+-------------+--------------+
 # |hamburger_15|   soup_8|    null|2022-12-24 15:04:...|hamburger|        15|          soup|              8|         null|          null|
-# |        null|     null|  coke_2|2022-12-24 15:04:...|     null|      null|          null|              0|         coke|             2|
+# |        null|     null|  coke_2|2022-12-24 15:04:...|     null|      null|          null|           null|         coke|             2|
 
 # Drop initial columns and get only name, price and timestamp columns
 df_final = df.drop("main_dish", "appetizer", "beverage")
@@ -90,7 +90,7 @@ df_final = df.drop("main_dish", "appetizer", "beverage")
 # |           timestamp|main_name|main_price|appetizer_name|appetizer_price|beverage_name|beverage_price|
 # +--------------------+---------+----------+--------------+---------------+-------------+--------------+
 # |2022-12-24 15:04:...|hamburger|        15|          soup|              8|         null|          null|
-# |2022-12-24 15:04:...|     null|      null|          null|              0|         coke|             2|
+# |2022-12-24 15:04:...|     null|      null|          null|           null|         coke|             2|
 
 # Write to consol
 query = \
