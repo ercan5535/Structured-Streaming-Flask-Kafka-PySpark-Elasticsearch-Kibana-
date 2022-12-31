@@ -52,11 +52,11 @@ Kafka topic "orders" is ready to use.
 
 #### - Install elasticsearch 8.5.3
 $ wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-8.5.3-amd64.deb<br>
-$sudo dpkg -i elasticsearch-8.5.3-amd64.deb<br>
+$ sudo dpkg -i elasticsearch-8.5.3-amd64.deb<br>
 
 #### - Setup network configuration for elasticsearch
 Open file: <br>
-$sudo nano /etc/elasticsearch/elasticsearch.yml<br>
+$ sudo nano /etc/elasticsearch/elasticsearch.yml<br>
 
 - and set IP as localhost<br>
 ...<br>
