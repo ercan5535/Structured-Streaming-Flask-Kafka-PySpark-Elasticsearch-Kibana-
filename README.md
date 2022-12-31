@@ -32,19 +32,19 @@ $ tar -xzf kafka_2.13-3.3.1.tgz<br>
 $ cd kafka_2.13-3.3.1<br>
 
 
-##### - Start the Kafka environment
+#### - Start the Kafka environment
 NOTE: Your local environment must have Java 8+ installed.
 Run the following commands in order to start all services in the correct order:
 
-##### - Start the ZooKeeper service
+- Start the ZooKeeper service <br>
 $ bin/zookeeper-server-start.sh config/zookeeper.properties
-Open another terminal session and run:
-##### - Start the Kafka broker service
+- Start the Kafka broker service <br>
+Open another terminal session and run:<br>
 $ bin/kafka-server-start.sh config/server.properties
 
 Once all services have successfully launched, you will have a basic Kafka environment running and ready to use. 
 
-Create topic:<br>
+#### - Create topic:<br>
 $ bin/kafka-topics.sh --create --topic orders --bootstrap-server localhost:9092
 
 Kafka topic "orders" is ready to use.
@@ -97,19 +97,20 @@ curl -XPUT 'http://localhost:9200/orders_index' -H 'Content-Type: application/js
 
 Elasticsearch index is ready to write data.
 
-## Step 3) Start Flask app (Producer)
+## Step 3) Start PySpark (Consumer)
+Open a new terminal session and run:<br>
+$ cd consumer/<br>
+$ spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.1 --jars elasticsearch-spark-30_2.12-8.5.3.jar consumer.py<br>
+
+After 5-10 secs Spark session is ready to listen Kafka, process data and write into Elasticsearch.
+
+## Step 4) Start Flask app (Producer)
 Open a new terminal session and run:<br>
 $ cd producer/<br>
 $ flask run<br>
 
 It will be working on: localhost:5000/ <br><br>
 Now Flask App is ready. Go localhost:5000/ and order something :)
-## Step 4) Start PySpark (Consumer)
-Open a new terminal session and run:<br>
-$ cd consumer/<br>
-$ spark-submit --packages org.apache.spark:spark-sql-kafka-0-10_2.12:3.3.1 --jars elasticsearch-spark-30_2.12-8.5.3.jar consumer.py
-
-
 
 
 
