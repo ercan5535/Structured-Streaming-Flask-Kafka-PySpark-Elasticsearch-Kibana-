@@ -34,7 +34,7 @@ df.printSchema()
 # |-- timestamp: timestamp (nullable = true)
 # |-- timestampType: integer (nullable = true)
 
-# Convert Vale byte format to string format
+# Convert Value column byte format to string format, also get timestamp
 df = df.selectExpr("CAST(value AS STRING)", "timestamp")
 # +--------------------+--------------------+
 # |               value|           timestamp|
@@ -101,7 +101,6 @@ query = \
     .trigger(processingTime="5 seconds") \
     .start()
 
-
 # Write to elasticsearch
 query = df_final.writeStream \
     .outputMode("append") \
@@ -112,7 +111,6 @@ query = df_final.writeStream \
     .option("es.port", "9200") \
     .start()
 
-#.option("checkpointLocation", "/tmp/") \
 query.awaitTermination()
 
 
