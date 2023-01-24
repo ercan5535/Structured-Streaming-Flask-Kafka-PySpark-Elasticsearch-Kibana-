@@ -1,0 +1,103 @@
+version: '3.9'
+
+services:
+  zookeeper:
+    container_name: zookeeper
+    image: confluentinc/cp-zookeeper:7.2.0
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+    networks:
+      - broker_network
+  
+  kafka:
+    container_name: kafka
+    image: confluentinc/cp-kafka:7.2.0
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    networks:
+      - broker_network
+
+  init_kafka:
+    container_name: init_kafka
+    image: confluentinc/cp-kafka:7.2.0
+    networks:
+      - broker_network
+    depends_on:
+      - kafka
+    command: kafka-topics --bootstrap-server kafka:9092 --create --if-not-exists --topic orders --replication-factor 1 --partitions 1
+      
+  elasticsearch:
+    container_name: elasticsearch
+    image: elasticsearch:8.5.3
+    environment:
+      - xpack.security.enabled=false
+      - "discovery.type=single-node"
+    networks:
+      - db_network
+    volumes:
+      - es-data:/usr/share/elasticsearch/data7
+
+  kibana:
+    container_name: kibana
+    image: kibana:8.5.3
+    environment:
+      ELASTICSEARCH_HOSTS: "http://elasticsearch:9200"
+    ports:
+      - 5602:5601
+    networks:
+      - db_network
+
+  init_db:
+    container_name: init_db
+    build: ./init_db
+    environment:
+      ES_HOST: "elasticsearch"
+      ES_PORT: "9200"
+      KIBANA_HOST: "kibana"
+      KIBANA_PORT: "5601"
+    networks:
+      - db_network
+    depends_on:
+      - elasticsearch
+      - kibana
+
+  flask-app:
+    container_name: flask-producer
+    build: ./producer
+    ports:
+     - "5000:5000"
+    environment:
+      KAFKA_BROKER_URL: "kafka:9092"
+      KAFKA_TOPIC_NAME: "orders"
+    depends_on:
+      init_kafka:
+        condition: service_completed_successfully
+    networks:
+     - broker_network
+
+  spark:
+    container_name: spark-consumer
+    build: ./consumer
+    environment:
+      KAFKA_BROKER_URL: "kafka:9092"
+      KAFKA_TOPIC_NAME: "orders"
+      ES_HOST: "elasticsearch"
+      ES_PORT: "9200"
+    depends_on:
+      init_kafka:
+        condition: service_completed_successfully
+      init_db:
+        condition: service_completed_successfully
+    networks:
+     - broker_network
+     - db_network
+
+networks:
+  db_network:
+  broker_network:
+volumes:
+  es-data:

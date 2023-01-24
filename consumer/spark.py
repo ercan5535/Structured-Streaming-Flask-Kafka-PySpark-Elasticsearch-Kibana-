@@ -1,9 +1,16 @@
-from pyspark import SparkContext
+import time
+import os
+
 from pyspark.sql import SparkSession
 from pyspark.sql.functions import *
 from pyspark.sql.types import StructType, StringType
 
-# Create Schema
+KAFKA_BROKER_URL = os.environ.get('KAFKA_BROKER_URL')
+KAFKA_TOPIC_NAME = os.environ.get('KAFKA_TOPIC_NAME')
+
+ES_HOST = os.environ.get('ES_HOST')
+ES_PORT = os.environ.get('ES_PORT')
+
 schema = (
         StructType()
         .add("main_dish", StringType())
@@ -19,8 +26,8 @@ spark.sparkContext.setLogLevel('ERROR')
 df = spark \
   .readStream \
   .format("kafka") \
-  .option("kafka.bootstrap.servers", "127.0.0.1:9092") \
-  .option("subscribe", "orders") \
+  .option("kafka.bootstrap.servers", KAFKA_BROKER_URL) \
+  .option("subscribe", KAFKA_TOPIC_NAME) \
   .option("startingOffsets", "earliest") \
   .load()
 
@@ -34,7 +41,7 @@ df.printSchema()
 # |-- timestamp: timestamp (nullable = true)
 # |-- timestampType: integer (nullable = true)
 
-# Convert Value column byte format to string format, also get timestamp
+# Convert Vale byte format to string format
 df = df.selectExpr("CAST(value AS STRING)", "timestamp")
 # +--------------------+--------------------+
 # |               value|           timestamp|
@@ -82,7 +89,7 @@ df = df.withColumn("beverage_price", when(df["beverage"].isNull(), None)
 # |   main_dish|appetizer|beverage|           timestamp|main_name|main_price|appetizer_name|appetizer_price|beverage_name|beverage_price|
 # +------------+---------+--------+--------------------+---------+----------+--------------+---------------+-------------+--------------+
 # |hamburger_15|   soup_8|    null|2022-12-24 15:04:...|hamburger|        15|          soup|              8|         null|          null|
-# |        null|     null|  coke_2|2022-12-24 15:04:...|     null|      null|          null|           null|         coke|             2|
+# |        null|     null|  coke_2|2022-12-24 15:04:...|     null|      null|          null|              0|         coke|             2|
 
 # Drop initial columns and get only name, price and timestamp columns
 df_final = df.drop("main_dish", "appetizer", "beverage")
@@ -90,7 +97,7 @@ df_final = df.drop("main_dish", "appetizer", "beverage")
 # |           timestamp|main_name|main_price|appetizer_name|appetizer_price|beverage_name|beverage_price|
 # +--------------------+---------+----------+--------------+---------------+-------------+--------------+
 # |2022-12-24 15:04:...|hamburger|        15|          soup|              8|         null|          null|
-# |2022-12-24 15:04:...|     null|      null|          null|           null|         coke|             2|
+# |2022-12-24 15:04:...|     null|      null|          null|              0|         coke|             2|
 
 # Write to consol
 query = \
@@ -101,15 +108,17 @@ query = \
     .trigger(processingTime="5 seconds") \
     .start()
 
+
 # Write to elasticsearch
 query = df_final.writeStream \
     .outputMode("append") \
     .format("org.elasticsearch.spark.sql") \
     .option("checkpointLocation", "tmp/") \
     .option("es.resource", "orders_index") \
-    .option("es.nodes", "localhost") \
-    .option("es.port", "9200") \
+    .option("es.nodes", ES_HOST) \
+    .option("es.port", ES_PORT) \
     .start()
+
 
 query.awaitTermination()
 

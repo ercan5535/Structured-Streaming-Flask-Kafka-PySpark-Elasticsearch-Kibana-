@@ -1,0 +1,13 @@
+{
+    "mappings": {
+      "properties": {
+        "main_name":  { "type": "keyword"},
+        "appetizer_name":  { "type": "keyword"},
+        "beverage_name":  { "type": "keyword"},
+        "main_price":  { "type": "integer"},
+        "appetizer_price":  { "type": "integer"},
+        "beverage_price":  { "type": "integer"},
+        "timestamp":  { "type": "date"}
+      }
+    }
+  }
