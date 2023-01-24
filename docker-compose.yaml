@@ -39,7 +39,7 @@ services:
     networks:
       - db_network
     volumes:
-      - es-data:/usr/share/elasticsearch/data7
+      - es-data:/usr/share/elasticsearch/data
 
   kibana:
     container_name: kibana
