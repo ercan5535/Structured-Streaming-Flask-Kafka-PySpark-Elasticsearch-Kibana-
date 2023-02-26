@@ -1,15 +1,4 @@
 # Structured Streaming
-Pipeline
-
-<img src="https://user-images.githubusercontent.com/67562422/213930430-33b6af44-c0b6-434b-9405-d38fe077ec28.png" width="800" height="100" >
-<br>
-Flask App
-
-<img src="https://user-images.githubusercontent.com/67562422/210098040-c3e1e4cf-3bcf-4c28-8ea6-ac55cf560d41.png" width="500" height="280" >
-
-Kibana Dashboard
-
-<img src="https://user-images.githubusercontent.com/67562422/210100372-c5ab6564-eb08-4545-9f31-318fe3f2475a.png" width="1000" height="280" >
 
 In this project I created a structured streaming with common technologies.<br>
 It was a good practice to use these technologies while working together.<br>
@@ -25,6 +14,18 @@ PySpark reads streaming from Kafka, does some data processing and writes to Elas
 - Visualization:<br>
 Kibana to visualize Elasticsearch data.<br>
 Elasticsearch index and Kibana dashboard operations handled by init_db
+
+Pipeline
+
+<img src="https://user-images.githubusercontent.com/67562422/213930430-33b6af44-c0b6-434b-9405-d38fe077ec28.png" width="800" height="100" >
+<br>
+Flask App
+
+<img src="https://user-images.githubusercontent.com/67562422/210098040-c3e1e4cf-3bcf-4c28-8ea6-ac55cf560d41.png" width="500" height="280" >
+
+Kibana Dashboard
+
+<img src="https://user-images.githubusercontent.com/67562422/210100372-c5ab6564-eb08-4545-9f31-318fe3f2475a.png" width="1000" height="280" >
 
 # Starting Services
 Docker versions <br>
