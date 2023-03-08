@@ -11,8 +11,8 @@ done
 # Create index on elasticsearch
 curl -XPUT "${ES_HOST}:${ES_PORT}/orders_index" -H "Content-Type: application/json" -d @index_mapping.json
 
-seconds=10
 # Wait until kibana is ready
+seconds=10
 until [[ "$status" == "All services are available" ]]; do
     >&2 echo "Kibana is unavailable - waiting for it... 😴 ($seconds)"
     status=$(curl -s ${KIBANA_HOST}:${KIBANA_PORT}/api/status | jq -r '.status.overall.summary')
