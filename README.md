@@ -13,7 +13,7 @@ PySpark reads streaming from Kafka, does some data processing and writes to Elas
 
 - Visualization:<br>
 Kibana to visualize Elasticsearch data.<br>
-Elasticsearch index and Kibana dashboard operations handled by init_db
+Elasticsearch index and Kibana dashboard operations handled by <b>init_db</b>
 
 Pipeline
 
