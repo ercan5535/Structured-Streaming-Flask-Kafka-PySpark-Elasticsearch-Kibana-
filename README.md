@@ -32,7 +32,7 @@ Docker versions <br>
 <img src="https://user-images.githubusercontent.com/67562422/214274763-a9432f84-d144-468d-9103-c4d687282e1d.png" width="300" height="50" >
 
 <b>$ sudo docker-compose up</b> <br>
-is fine to start all services. <br>
+is fine to start all services in proper sequence. <br>
 
 # Usage
 Flask App: localhost:5000 <br>
